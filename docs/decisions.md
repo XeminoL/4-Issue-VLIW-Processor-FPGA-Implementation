@@ -43,3 +43,24 @@ When resolving an open item, add a dated entry with a stable ID, status, context
 If a choice would change architectural behavior, obtain an explicit scope change and update the specification before relying on it in implementation. For an ambiguity within the existing scope, prefer the simplest deterministic interpretation, document the affected specification section and reasoning, and add a focused test.
 
 Keep encodings, interface tables, cycle equations, and the full acceptance matrix in `SPEC.md`. This record should explain why a choice was made and what it affects, without becoming a second specification.
+
+## 2026-09-29 — Package bring-up
+
+### D11 — Packet-width discrepancy (implemented; clarification pending)
+
+SPEC 7.7 and 7.8 list M/W fields totaling 288 bits, but state 388 bits
+in the totals and interface tables. The package preserves every listed field
+in order without adding unspecified padding. Resolve this discrepancy before
+implementing fixed-width downstream ports. Package tests check the field-derived
+width and layout.
+
+### D12 — Package setup and validation (accepted for package bring-up)
+
+Memory defaults are the minimum legal sizes: one instruction bundle and one
+data word. They are not application or board configurations. Modules must
+propagate selected depths and recompute widened address limits consistently.
+
+Python 3.10.0 and pyslang 11.0.0 pass the 11 checks in
+scripts/check_package.py using tb/tb_vliw_pkg.sv. This is elaboration and
+constant evaluation, not pipeline simulation. Dependencies are pinned in
+scripts/requirements.txt. No FPGA target or full regression toolchain is selected.

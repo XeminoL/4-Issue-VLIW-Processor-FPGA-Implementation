@@ -4,7 +4,7 @@
 
 This document organizes implementation bring-up and the evidence needed to establish correctness. The mandatory coverage and assertions are defined in `SPEC.md`, Section 15; this plan does not replace that checklist.
 
-**Current status:** no executable tests, reference models, regression scripts, or verification results are present. The stages below are planned work, not claims of passing coverage.
+**Current status:** 11 package contract checks pass via `python scripts/check_package.py` with Python 3.10.0 and pyslang 11.0.0. See the README for setup. Coverage includes encodings, constants, widths, field packing, lane order, and zero payloads. M/W widths follow decision D11. CPU tests, reference models, full regression, and FPGA validation remain pending. The stages below are planned work, not claims of passing coverage.
 
 ## Bring-up stages
 

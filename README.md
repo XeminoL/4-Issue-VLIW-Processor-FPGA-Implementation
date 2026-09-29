@@ -6,7 +6,31 @@ Software groups independent operations into a 128-bit bundle. The processor exec
 
 ## Project status
 
-The repository currently contains the specification and supporting documentation. The implementation directories are scaffolded, but RTL, software tools, testbenches, and build scripts are not yet present. Simulation and FPGA results are therefore not available, and there is no runnable build command yet.
+The shared package is implemented. Workspace setup and package contract checks are available; other RTL, software tools, and integration testbenches remain placeholders. CPU simulation and FPGA results are not yet available.
+
+## Setup and package checks
+
+From the repository root, using Python 3.10 or newer:
+
+```powershell
+python scripts/setup_workspace.py
+python -m pip install --target build/python -r scripts/requirements.txt
+python scripts/check_package.py
+```
+
+Setup creates missing workload and output directories without overwriting files.
+The checker runs 11 contract checks using slang constant evaluation: architecture
+constants, memory defaults, exact special words, control encodings, fault codes,
+instruction tags, forwarding selections, record widths, field packing, lane
+order, and zero payloads. Verified with Python 3.10.0 and pyslang 11.0.0.
+It resolves paths relative to the script, so checks also work outside the root.
+
+The M/W packet fields total 288 bits, although SPEC.md states 388 bits. The
+package preserves the listed fields without padding; see decision D11.
+This is package validation, not CPU simulation. Full regression, random-program
+generation, and FPGA build automation remain pending implementation and target
+selection.
+
 
 ## Start here
 
