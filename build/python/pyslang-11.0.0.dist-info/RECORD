@@ -1,0 +1,10 @@
+pyslang-11.0.0.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+pyslang-11.0.0.dist-info/METADATA,sha256=2XDoJMjBUKrZ4pUdhTVNG259GPhrfX8KX8QUBi7cqU4,8455
+pyslang-11.0.0.dist-info/RECORD,,
+pyslang-11.0.0.dist-info/REQUESTED,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+pyslang-11.0.0.dist-info/WHEEL,sha256=rs4XyvYyY8p6GzRLerHjRm6wNH1QAkDMf7SSChBeqNk,106
+pyslang-11.0.0.dist-info/licenses/LICENSE,sha256=CqpeVcI7qtUb2rJB42Ig0vqN8RR84omoGliuTRwVAv4,1066
+pyslang/__init__.py,sha256=4YZVbHLQ5wMaS2gPs57ff5Xh-RhPjqmcyw01jQJUiQE,497
+pyslang/__pycache__/__init__.cpython-310.pyc,,
+pyslang/py.typed,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+pyslang/pyslang.cp310-win_amd64.pyd,sha256=X_sPyvP29hkYibQbLwYcP0VOL9cSC_AUZBLzl8oB5CY,13276672

@@ -1,0 +1,662 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2009.vpi";
+S_000001830c92dfc0 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_000001830c8f3d50 .scope package, "vliw_pkg" "vliw_pkg" 3 2;
+ .timescale 0 0;
+P_000001830c9318a0 .param/l "BUNDLE_BITS" 1 3 6, +C4<00000000000000000000000010000000>;
+P_000001830c9318d8 .param/l "BUNDLE_BYTES" 1 3 9, +C4<00000000000000000000000000010000>;
+P_000001830c931910 .param/l "DMEM_BYTES" 1 3 18, C4<0000000000000000000000000000000000000000000000000000000000000100>;
+P_000001830c931948 .param/l "DMEM_WORDS" 0 3 15, +C4<00000000000000000000000000000001>;
+P_000001830c931980 .param/l "HALT_WORD" 1 3 21, C4<00000000000000000000000000001011>;
+P_000001830c9319b8 .param/l "IMEM_BUNDLES" 0 3 14, +C4<00000000000000000000000000000001>;
+P_000001830c9319f0 .param/l "IMEM_BYTES" 1 3 17, C4<0000000000000000000000000000000000000000000000000000000000010000>;
+P_000001830c931a28 .param/l "LANES" 1 3 4, +C4<00000000000000000000000000000100>;
+P_000001830c931a60 .param/l "NOP_WORD" 1 3 20, C4<00000000000000000000000000010011>;
+P_000001830c931a98 .param/l "OPERAND_PORTS" 1 3 8, +C4<00000000000000000000000000001000>;
+P_000001830c931ad0 .param/l "REG_BITS" 1 3 7, +C4<00000000000000000000000000000101>;
+P_000001830c931b08 .param/l "REG_COUNT" 1 3 5, +C4<00000000000000000000000000100000>;
+P_000001830c931b40 .param/l "WORD_BYTES" 1 3 10, +C4<00000000000000000000000000000100>;
+P_000001830c931b78 .param/l "XLEN" 1 3 3, +C4<00000000000000000000000000100000>;
+enum000001830c913c80 .enum4 (3)
+   "IMM_I" 3'b000,
+   "IMM_S" 3'b001,
+   "IMM_B" 3'b010,
+   "IMM_U" 3'b011,
+   "IMM_J" 3'b100,
+   "IMM_NONE" 3'b111
+ ;
+enum000001830c918640 .enum4 (4)
+   "FWD_SAVED" 4'b0000,
+   "FWD_MEM0" 4'b0001,
+   "FWD_MEM1" 4'b0010,
+   "FWD_MEM2" 4'b0011,
+   "FWD_MEM3" 4'b0100,
+   "FWD_WB0" 4'b0101,
+   "FWD_WB1" 4'b0110,
+   "FWD_WB2" 4'b0111,
+   "FWD_WB3" 4'b1000,
+   "FWD_BLOCKED" 4'b1001
+ ;
+enum000001830c913d20 .enum4 (2)
+   "MEM_NONE" 2'b00,
+   "MEM_LW" 2'b01,
+   "MEM_SW" 2'b10
+ ;
+enum000001830c913dc0 .enum4 (2)
+   "CTRL_NONE" 2'b00,
+   "CTRL_BEQ" 2'b01,
+   "CTRL_BNE" 2'b10,
+   "CTRL_JAL" 2'b11
+ ;
+enum000001830c913f00 .enum4 (2)
+   "MODE_RUN" 2'b00,
+   "MODE_DRAIN_HALT" 2'b01,
+   "MODE_DRAIN_FAULT" 2'b10,
+   "MODE_STOP" 2'b11
+ ;
+enum000001830c913e60 .enum4 (2)
+   "TERMINAL_NONE" 2'b00,
+   "TERMINAL_HALT" 2'b01,
+   "TERMINAL_FAULT" 2'b10
+ ;
+enum000001830c918460 .enum4 (5)
+   "TAG_NOP" 5'b00000,
+   "TAG_ADD" 5'b00001,
+   "TAG_SUB" 5'b00010,
+   "TAG_AND" 5'b00011,
+   "TAG_OR" 5'b00100,
+   "TAG_XOR" 5'b00101,
+   "TAG_SLT" 5'b00110,
+   "TAG_SLL" 5'b00111,
+   "TAG_SRL" 5'b01000,
+   "TAG_ADDI" 5'b01001,
+   "TAG_LUI" 5'b01010,
+   "TAG_LW" 5'b01011,
+   "TAG_SW" 5'b01100,
+   "TAG_BEQ" 5'b01101,
+   "TAG_BNE" 5'b01110,
+   "TAG_JAL" 5'b01111,
+   "TAG_HALT" 5'b10000,
+   "TAG_INVALID" 5'b11111
+ ;
+enum000001830c917fb0 .enum4 (4)
+   "FAULT_NONE" 4'b0000,
+   "FAULT_ILLEGAL_ENCODING" 4'b0001,
+   "FAULT_ILLEGAL_SLOT" 4'b0010,
+   "FAULT_CONTROL_PARTNER" 4'b0011,
+   "FAULT_DUPLICATE_DEST" 4'b0100,
+   "FAULT_CROSS_SLOT_DEP" 4'b0101,
+   "FAULT_FETCH_ALIGN" 4'b0110,
+   "FAULT_FETCH_RANGE" 4'b0111,
+   "FAULT_DATA_ALIGN" 4'b1000,
+   "FAULT_DATA_RANGE" 4'b1001,
+   "FAULT_TARGET_ALIGN" 4'b1010,
+   "FAULT_TARGET_RANGE" 4'b1011
+ ;
+enum000001830c912bd0 .enum4 (4)
+   "ALU_ADD" 4'b0000,
+   "ALU_SUB" 4'b0001,
+   "ALU_AND" 4'b0010,
+   "ALU_OR" 4'b0011,
+   "ALU_XOR" 4'b0100,
+   "ALU_SLL" 4'b0101,
+   "ALU_SRL" 4'b0110,
+   "ALU_SLT" 4'b1000,
+   "ALU_PASS_B" 4'b1010
+ ;
+S_000001830c8f3ee0 .scope module, "tb_vliw_pkg" "tb_vliw_pkg" 4 1;
+ .timescale 0 0;
+v000001830c9366a0_0 .var "d", 201 0;
+v000001830c936740_0 .var "dec", 61 0;
+v000001830c936ce0_0 .var "e", 577 0;
+v000001830c936560_0 .var "fault", 40 0;
+v000001830c936880_0 .var "m", 287 0;
+v000001830c9367e0_0 .var "producer", 38 0;
+v000001830c9364c0_0 .var "w", 287 0;
+S_000001830c931bc0 .scope autotask, "check" "check" 4 11, 4 11 0, S_000001830c8f3ee0;
+ .timescale 0 0;
+v000001830c936600_0 .var "condition", 0 0;
+v000001830c936380_0 .var/str "message";
+TD_tb_vliw_pkg.check ;
+    %load/vec4 v000001830c936600_0;
+    %cmpi/ne 1, 0, 1;
+    %jmp/0xz  T_0.0, 6;
+    %vpi_call/w 4 12 "$fatal", 32'sb00000000000000000000000000000001, "%s", v000001830c936380_0 {0 0 0};
+T_0.0 ;
+    %end;
+    .scope S_000001830c8f3ee0;
+T_1 ;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "architecture constants";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "exact special encodings";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "memory defaults";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "ALU encodings";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "immediate encodings";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "memory encodings";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "control encodings";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "terminal encodings";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "mode encodings";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "fault encodings";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "instruction identities";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "forwarding selections";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "specified record widths";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 40, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936560_0, 4, 1;
+    %pushi/vec4 11, 0, 4;
+    %ix/load 4, 36, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936560_0, 4, 4;
+    %pushi/vec4 5, 0, 4;
+    %ix/load 4, 32, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936560_0, 4, 4;
+    %pushi/vec4 305419896, 0, 32;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936560_0, 4, 32;
+    %alloc S_000001830c931bc0;
+    %load/vec4 v000001830c936560_0;
+    %pushi/vec4 3666418219, 0, 32;
+    %concati/vec4 120, 0, 9;
+    %cmp/e;
+    %flag_get/vec4 6;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "fault layout";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %pushi/vec4 0, 0, 62;
+    %store/vec4 v000001830c936740_0, 0, 62;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 61, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 60, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 59, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 1;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 58, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 1;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 57, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 1;
+    %pushi/vec4 1, 0, 5;
+    %ix/load 4, 52, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 5;
+    %pushi/vec4 2, 0, 5;
+    %ix/load 4, 47, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 5;
+    %pushi/vec4 3, 0, 5;
+    %ix/load 4, 42, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 5;
+    %pushi/vec4 2309737967, 0, 32;
+    %ix/load 4, 10, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 32;
+    %pushi/vec4 8, 0, 4;
+    %ix/load 4, 6, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 4;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 5, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 1;
+    %pushi/vec4 1, 0, 2;
+    %ix/load 4, 3, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 2;
+    %pushi/vec4 3, 0, 2;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 2;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936740_0, 4, 1;
+    %alloc S_000001830c931bc0;
+    %load/vec4 v000001830c936740_0;
+    %pushi/vec4 3896785050, 0, 32;
+    %concati/vec4 792182319, 0, 30;
+    %cmp/e;
+    %flag_get/vec4 6;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "decode layout";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 201, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c9366a0_0, 4, 1;
+    %pushi/vec4 16, 0, 32;
+    %ix/load 4, 169, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c9366a0_0, 4, 32;
+    %pushi/vec4 3435973836, 0, 34;
+    %concati/vec4 2290649224, 0, 32;
+    %concati/vec4 2290649224, 0, 33;
+    %concati/vec4 19, 0, 29;
+    %ix/load 4, 41, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c9366a0_0, 4, 128;
+    %load/vec4 v000001830c936560_0;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c9366a0_0, 4, 41;
+    %alloc S_000001830c931bc0;
+    %load/vec4 v000001830c9366a0_0;
+    %pushi/vec4 1, 0, 1;
+    %concati/vec4 16, 0, 32;
+    %concati/vec4 3435973836, 0, 34;
+    %concati/vec4 2290649224, 0, 32;
+    %concati/vec4 2290649224, 0, 33;
+    %concati/vec4 19, 0, 29;
+    %load/vec4 v000001830c936560_0;
+    %concat/vec4; draw_concat_vec4
+    %cmp/e;
+    %flag_get/vec4 6;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "D layout";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %load/vec4 v000001830c9366a0_0;
+    %parti/u 32, 41, 32;
+    %cmpi/e 19, 0, 32;
+    %flag_get/vec4 4;
+    %jmp/0 T_1.0, 4;
+    %load/vec4 v000001830c9366a0_0;
+    %parti/u 32, 137, 32;
+    %pushi/vec4 858993459, 0, 32;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_1.0;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "instruction lane order";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 577, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936ce0_0, 4, 1;
+    %pushi/vec4 32, 0, 32;
+    %ix/load 4, 545, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936ce0_0, 4, 32;
+    %pushi/vec4 1, 0, 1;
+    %concati/vec4 32, 0, 32;
+    %concati/vec4 3, 0, 62;
+    %concati/vec4 2, 0, 62;
+    %concati/vec4 1, 0, 62;
+    %load/vec4 v000001830c936740_0;
+    %concat/vec4; draw_concat_vec4
+    %concati/vec4 0, 0, 256;
+    %concati/vec4 0, 0, 41;
+    %store/vec4 v000001830c936ce0_0, 0, 578;
+    %pushi/vec4 3758096384, 0, 61;
+    %concati/vec4 3221225472, 0, 32;
+    %concati/vec4 2684354560, 0, 32;
+    %concati/vec4 2147483648, 0, 32;
+    %concati/vec4 3221225472, 0, 33;
+    %concati/vec4 2147483648, 0, 32;
+    %concati/vec4 2147483648, 0, 33;
+    %concati/vec4 0, 0, 1;
+    %ix/load 4, 41, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936ce0_0, 4, 256;
+    %load/vec4 v000001830c936560_0;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936ce0_0, 4, 41;
+    %alloc S_000001830c931bc0;
+    %load/vec4 v000001830c936ce0_0;
+    %pushi/vec4 1, 0, 1;
+    %concati/vec4 32, 0, 32;
+    %concati/vec4 3, 0, 62;
+    %concati/vec4 2, 0, 62;
+    %concati/vec4 1, 0, 62;
+    %load/vec4 v000001830c936740_0;
+    %concat/vec4; draw_concat_vec4
+    %concati/vec4 7, 0, 32;
+    %concati/vec4 6, 0, 32;
+    %concati/vec4 5, 0, 32;
+    %concati/vec4 4, 0, 32;
+    %concati/vec4 3, 0, 32;
+    %concati/vec4 2, 0, 32;
+    %concati/vec4 1, 0, 32;
+    %concati/vec4 0, 0, 32;
+    %load/vec4 v000001830c936560_0;
+    %concat/vec4; draw_concat_vec4
+    %cmp/e;
+    %flag_get/vec4 6;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "E layout";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %alloc S_000001830c931bc0;
+    %load/vec4 v000001830c936ce0_0;
+    %parti/u 62, 297, 32;
+    %load/vec4 v000001830c936740_0;
+    %cmp/e;
+    %flag_get/vec4 6;
+    %jmp/0 T_1.2, 6;
+    %load/vec4 v000001830c936ce0_0;
+    %parti/u 32, 41, 32;
+    %pushi/vec4 0, 0, 32;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_1.2;
+    %flag_set/vec4 8;
+    %flag_get/vec4 8;
+    %jmp/0 T_1.1, 8;
+    %load/vec4 v000001830c936ce0_0;
+    %parti/u 32, 265, 32;
+    %pushi/vec4 7, 0, 32;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_1.1;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "decode/operand lane order";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 287, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 1;
+    %pushi/vec4 48, 0, 32;
+    %ix/load 4, 255, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 32;
+    %pushi/vec4 64, 0, 32;
+    %ix/load 4, 223, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 32;
+    %pushi/vec4 10, 0, 4;
+    %ix/load 4, 219, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 4;
+    %pushi/vec4 134209, 0, 20;
+    %ix/load 4, 199, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 20;
+    %pushi/vec4 5, 0, 4;
+    %ix/load 4, 195, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 4;
+    %pushi/vec4 2147483648, 0, 61;
+    %concati/vec4 3221225472, 0, 33;
+    %concati/vec4 2147483648, 0, 32;
+    %concati/vec4 1, 0, 2;
+    %ix/load 4, 67, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 128;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 66, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 1;
+    %pushi/vec4 0, 0, 1;
+    %ix/load 4, 65, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 1;
+    %pushi/vec4 256, 0, 32;
+    %ix/load 4, 33, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 32;
+    %pushi/vec4 3735928559, 0, 32;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 32;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c936880_0, 4, 1;
+    %alloc S_000001830c931bc0;
+    %load/vec4 v000001830c936880_0;
+    %pushi/vec4 2147483672, 0, 32;
+    %concati/vec4 2168723586, 0, 58;
+    %concati/vec4 2684354560, 0, 32;
+    %concati/vec4 2147483648, 0, 32;
+    %concati/vec4 3221225472, 0, 33;
+    %concati/vec4 2147483648, 0, 32;
+    %concati/vec4 3221225504, 0, 33;
+    %concati/vec4 3735928559, 0, 35;
+    %concati/vec4 1, 0, 1;
+    %cmp/e;
+    %flag_get/vec4 6;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "M layout";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %load/vec4 v000001830c936880_0;
+    %store/vec4 v000001830c9364c0_0, 0, 288;
+    %alloc S_000001830c931bc0;
+    %load/vec4 v000001830c9364c0_0;
+    %load/vec4 v000001830c936880_0;
+    %cmp/e;
+    %flag_get/vec4 6;
+    %jmp/0 T_1.4, 6;
+    %load/vec4 v000001830c9364c0_0;
+    %parti/u 5, 199, 32;
+    %pushi/vec4 1, 0, 5;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_1.4;
+    %flag_set/vec4 8;
+    %flag_get/vec4 8;
+    %jmp/0 T_1.3, 8;
+    %load/vec4 v000001830c9364c0_0;
+    %parti/u 32, 163, 32;
+    %pushi/vec4 4, 0, 32;
+    %cmp/e;
+    %flag_get/vec4 4;
+    %and;
+T_1.3;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "W layout";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 38, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c9367e0_0, 4, 1;
+    %pushi/vec4 17, 0, 5;
+    %ix/load 4, 33, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c9367e0_0, 4, 5;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 32, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c9367e0_0, 4, 1;
+    %pushi/vec4 3405691582, 0, 32;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v000001830c9367e0_0, 4, 32;
+    %alloc S_000001830c931bc0;
+    %load/vec4 v000001830c9367e0_0;
+    %pushi/vec4 3348495733, 0, 32;
+    %concati/vec4 62, 0, 7;
+    %cmp/e;
+    %flag_get/vec4 6;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "producer layout";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %pushi/vec4 0, 0, 41;
+    %store/vec4 v000001830c936560_0, 0, 41;
+    %pushi/vec4 0, 0, 62;
+    %store/vec4 v000001830c936740_0, 0, 62;
+    %pushi/vec4 0, 0, 202;
+    %store/vec4 v000001830c9366a0_0, 0, 202;
+    %pushi/vec4 0, 0, 578;
+    %store/vec4 v000001830c936ce0_0, 0, 578;
+    %pushi/vec4 0, 0, 288;
+    %store/vec4 v000001830c936880_0, 0, 288;
+    %pushi/vec4 0, 0, 288;
+    %store/vec4 v000001830c9364c0_0, 0, 288;
+    %pushi/vec4 0, 0, 39;
+    %store/vec4 v000001830c9367e0_0, 0, 39;
+    %alloc S_000001830c931bc0;
+    %load/vec4 v000001830c936560_0;
+    %load/vec4 v000001830c936740_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v000001830c9366a0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v000001830c936ce0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v000001830c936880_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v000001830c9364c0_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v000001830c9367e0_0;
+    %concat/vec4; draw_concat_vec4
+    %pushi/vec4 0, 0, 1498;
+    %cmp/e;
+    %flag_get/vec4 6;
+    %store/vec4 v000001830c936600_0, 0, 1;
+    %pushi/str "zero reset payloads";
+    %store/str v000001830c936380_0;
+    %fork TD_tb_vliw_pkg.check, S_000001830c931bc0;
+    %join;
+    %free S_000001830c931bc0;
+    %vpi_call/w 4 97 "$display", "PASS: vliw_pkg encodings, widths, packing, lane order, zero payloads" {0 0 0};
+    %vpi_call/w 4 98 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "-";
+    "rtl/common/vliw_pkg.sv";
+    "tb/tb_vliw_pkg.sv";
