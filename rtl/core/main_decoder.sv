@@ -14,9 +14,6 @@ module main_decoder
     localparam logic [6:0] OP_BRANCH= 7'h63;
     localparam logic [6:0] OP_JAL   = 7'h6f;
 
-    localparam logic [6:0] F7_BASE = 7'h00;
-    localparam logic [6:0] F7_ALT  = 7'h20;
-
     logic [6:0] opcode;
     logic [2:0] funct3;
     logic [6:0] funct7;
@@ -37,15 +34,15 @@ module main_decoder
             unique case (opcode)
                 OP_R: begin
                     unique case ({funct7, funct3})
-                        {F7_BASE, 3'b000}: tag_o = TAG_ADD;
-                        {F7_ALT,  3'b000}: tag_o = TAG_SUB;
-                        {F7_BASE, 3'b111}: tag_o = TAG_AND;
-                        {F7_BASE, 3'b110}: tag_o = TAG_OR;
-                        {F7_BASE, 3'b100}: tag_o = TAG_XOR;
-                        {F7_BASE, 3'b010}: tag_o = TAG_SLT;
-                        {F7_BASE, 3'b001}: tag_o = TAG_SLL;
-                        {F7_BASE, 3'b101}: tag_o = TAG_SRL;
-                        default:           tag_o = TAG_INVALID;
+                        {7'h00, 3'b000}: tag_o = TAG_ADD;
+                        {7'h20, 3'b000}: tag_o = TAG_SUB;
+                        {7'h00, 3'b111}: tag_o = TAG_AND;
+                        {7'h00, 3'b110}: tag_o = TAG_OR;
+                        {7'h00, 3'b100}: tag_o = TAG_XOR;
+                        {7'h00, 3'b010}: tag_o = TAG_SLT;
+                        {7'h00, 3'b001}: tag_o = TAG_SLL;
+                        {7'h00, 3'b101}: tag_o = TAG_SRL;
+                        default:         tag_o = TAG_INVALID;
                     endcase
                 end
                 OP_ADDI:  tag_o = (funct3 == 3'b000) ? TAG_ADDI : TAG_INVALID;
