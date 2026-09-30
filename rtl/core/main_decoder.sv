@@ -1,4 +1,3 @@
-// Instruction identity decode: SPEC.md Sections 3.2 and 11.5.
 module main_decoder
     import vliw_pkg::*;
 (
@@ -25,7 +24,6 @@ module main_decoder
     always_comb begin
         tag_o = TAG_INVALID;
 
-        // Exact NOP is recognized before ordinary ADDI accounting.
         if (instr_i == NOP_WORD) begin
             tag_o = TAG_NOP;
         end else if (instr_i == HALT_WORD) begin
